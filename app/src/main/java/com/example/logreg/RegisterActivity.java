@@ -37,12 +37,17 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Mindegyik mezőt töltse ki", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    boolean siker = db.regisztracio(adatok);
-                    if(siker){
-                        Toast.makeText(RegisterActivity.this, "Sikeres regisztráció", Toast.LENGTH_SHORT).show();
+                    if(adatok[0].contains("@") && adatok[0].split("@")[1].contains(".")){
+                        boolean siker = db.regisztracio(adatok);
+                        if(siker){
+                            Toast.makeText(RegisterActivity.this, "Sikeres regisztráció", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "Sikertelen regisztráció", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
-                        Toast.makeText(RegisterActivity.this, "Sikertelen regisztráció", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Hibás Email formátum", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
