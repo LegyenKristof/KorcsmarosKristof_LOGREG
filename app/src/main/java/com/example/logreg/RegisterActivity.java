@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText editTextR1, editTextR2, editTextR3, editTextR4;
@@ -38,12 +40,25 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else {
                     if(adatok[0].contains("@") && adatok[0].split("@")[1].contains(".")){
-                        boolean siker = db.regisztracio(adatok);
-                        if(siker){
-                            Toast.makeText(RegisterActivity.this, "Sikeres regisztráció", Toast.LENGTH_SHORT).show();
+                        String[] nev = adatok[3].split(" ");
+                        boolean joanev = true;
+                        if(!adatok[3].contains(" ")) joanev = false;
+                        for(int i = 0; i < nev.length; i++){
+                            if(!Character.isUpperCase(nev[i].charAt(0))){
+                                joanev = false;
+                            }
+                        }
+                        if(joanev){
+                            boolean siker = db.regisztracio(adatok);
+                            if(siker){
+                                Toast.makeText(RegisterActivity.this, "Sikeres regisztráció", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(RegisterActivity.this, "Sikertelen regisztráció", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else{
-                            Toast.makeText(RegisterActivity.this, "Sikertelen regisztráció", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Hibás Név formátum", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else{
