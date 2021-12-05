@@ -3,6 +3,7 @@ package com.example.logreg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,11 @@ public class LoggedInActivity extends AppCompatActivity {
         buttonL1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("jegyezzMeg", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("megjegyez", "false");
+                editor.putString("nev", "");
+                editor.apply();
                 Intent intent = new Intent(LoggedInActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
