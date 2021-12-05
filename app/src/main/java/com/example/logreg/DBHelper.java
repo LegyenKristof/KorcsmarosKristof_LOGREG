@@ -2,6 +2,7 @@ package com.example.logreg;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -47,5 +48,10 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COL_JELSZO, adatok[2]);
         contentValues.put(COL_TELJESNEV, adatok[3]);
         return this.getWritableDatabase().insert(TABLE_NAME, null, contentValues) != -1;
+    }
+
+    public Cursor belepes(String[] adatok){
+        return this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME +
+                " WHERE " + COL_FELHNEV + " = ? AND " + COL_JELSZO + " = ?;", adatok);
     }
 }

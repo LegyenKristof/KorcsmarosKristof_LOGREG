@@ -19,6 +19,8 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in);
         init();
 
+        textViewL1.setText(getIntent().getStringExtra("nev"));
+
         buttonL1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
