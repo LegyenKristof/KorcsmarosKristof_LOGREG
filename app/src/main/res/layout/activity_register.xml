@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonR1"
-        android:text="Regisztráció"/>
+        android:text="Regisztráció"
+        android:enabled="false"/>
 
     <Button
         android:layout_width="match_parent"

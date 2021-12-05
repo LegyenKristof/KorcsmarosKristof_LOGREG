@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,7 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Hibás Email formátum", Toast.LENGTH_SHORT).show();
                     }
                 }
+                ellenoriz();
             }
+
         });
 
         buttonR2.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                         editTextR1.setTextColor(Color.rgb(0, 255, 0));
                     }
                 }
+                ellenoriz();
             }
         });
 
@@ -109,6 +113,21 @@ public class RegisterActivity extends AppCompatActivity {
                         editTextR2.setTextColor(Color.rgb(0, 255, 0));
                     }
                 }
+                ellenoriz();
+            }
+        });
+
+        editTextR3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                ellenoriz();
+            }
+        });
+
+        editTextR4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                ellenoriz();
             }
         });
     }
@@ -121,5 +140,39 @@ public class RegisterActivity extends AppCompatActivity {
         buttonR1 = findViewById(R.id.buttonR1);
         buttonR2 = findViewById(R.id.buttonR2);
         db = new DBHelper(RegisterActivity.this);
+    }
+
+    private void ellenoriz(){
+        buttonR1.setEnabled(false);
+        String[] adatok = new String[] {
+                editTextR1.getText().toString().trim(),
+                editTextR2.getText().toString().trim(),
+                editTextR3.getText().toString().trim(),
+                editTextR4.getText().toString().trim()
+        };
+        if(
+                adatok[0].isEmpty() || adatok[1].isEmpty() ||
+                        adatok[2].isEmpty() || adatok[3].isEmpty()
+        ){}
+        else {
+            if(adatok[0].contains("@") && adatok[0].split("@")[1].contains(".")){
+                String[] nev = adatok[3].split(" ");
+                boolean joanev = true;
+                if(!adatok[3].contains(" ")) joanev = false;
+                for(int i = 0; i < nev.length; i++){
+                    if(!Character.isUpperCase(nev[i].charAt(0))){
+                        joanev = false;
+                    }
+                }
+                if(joanev){
+                    if(
+                            !db.letezikFelhnev(editTextR2.getText().toString().trim()) &&
+                            !db.letezikEmail(editTextR1.getText().toString().trim())
+                    ) {
+                        buttonR1.setEnabled(true);
+                    }
+                }
+            }
+        }
     }
 }
