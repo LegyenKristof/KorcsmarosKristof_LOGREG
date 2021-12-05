@@ -54,4 +54,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME +
                 " WHERE " + COL_JELSZO + " = ? AND (" + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ?);", new String[] {adatok[1], adatok[0], adatok[0]});
     }
+
+    public boolean letezikEmail(String email){
+        return this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_EMAIL + " = ?;", new String[] {email}).getCount() != 0;
+    }
+
+    public boolean letezikFelhnev(String felhnev){
+        return this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_FELHNEV + " = ?;", new String[] {felhnev}).getCount() != 0;
+    }
 }

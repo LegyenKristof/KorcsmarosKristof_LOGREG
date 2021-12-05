@@ -3,6 +3,7 @@ package com.example.logreg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -74,6 +75,40 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        editTextR1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    editTextR1.setTextColor(Color.rgb(0, 0, 0));
+                }
+                else{
+                    if(db.letezikEmail(editTextR1.getText().toString().trim())){
+                        editTextR1.setTextColor(Color.rgb(255, 0, 0));
+                    }
+                    else{
+                        editTextR1.setTextColor(Color.rgb(0, 255, 0));
+                    }
+                }
+            }
+        });
+
+        editTextR2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    editTextR2.setTextColor(Color.rgb(0, 0, 0));
+                }
+                else{
+                    if(db.letezikFelhnev(editTextR2.getText().toString().trim())){
+                        editTextR2.setTextColor(Color.rgb(255, 0, 0));
+                    }
+                    else{
+                        editTextR2.setTextColor(Color.rgb(0, 255, 0));
+                    }
+                }
             }
         });
     }
