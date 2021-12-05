@@ -1,5 +1,6 @@
 package com.example.logreg;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,13 +25,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = String.format("CREATE TABLE " + TABLE_NAME + " (" +
-                COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_EMAIL + "TEXT NOT NULL UNIQUE, " +
-                COL_FELHNEV + "TEXT NOT NULL UNIQUE, " +
-                COL_JELSZO + "TEXT NOT NULL, " +
-                COL_TELJESNEV + "TEXT NOT NULL, " +
-                ");");
+        String sql = "CREATE TABLE " + TABLE_NAME + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_EMAIL + " TEXT NOT NULL UNIQUE, " +
+                COL_FELHNEV + " TEXT NOT NULL UNIQUE, " +
+                COL_JELSZO + " TEXT NOT NULL, " +
+                COL_TELJESNEV + " TEXT NOT NULL);";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -38,5 +38,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+
+    public boolean regisztracio(String[] adatok){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_EMAIL, adatok[0]);
+        contentValues.put(COL_FELHNEV, adatok[1]);
+        contentValues.put(COL_JELSZO, adatok[2]);
+        contentValues.put(COL_TELJESNEV, adatok[3]);
+        return this.getWritableDatabase().insert(TABLE_NAME, null, contentValues) != -1;
     }
 }
