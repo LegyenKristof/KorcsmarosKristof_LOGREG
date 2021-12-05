@@ -52,6 +52,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor belepes(String[] adatok){
         return this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME +
-                " WHERE " + COL_FELHNEV + " = ? AND " + COL_JELSZO + " = ?;", adatok);
+                " WHERE " + COL_JELSZO + " = ? AND (" + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ?);", new String[] {adatok[1], adatok[0], adatok[0]});
     }
 }
